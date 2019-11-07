@@ -143,6 +143,9 @@ extern "C"
     /// Blocksizes on each entity
     int entity_block_size[4];
 
+    /// Whether or not the dofs are vector on each entity
+    bool entity_dofs_are_vector[4];
+
     /// Number of dofs with global support (i.e. global constants)
     int num_global_support_dofs;
 
