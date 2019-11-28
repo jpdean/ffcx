@@ -119,7 +119,7 @@ class FFCBackendSymbols(object):
         return out
 
     def quadrature_permutation(self):
-        """Quadrature permutation, as input to the function"""
+        """Quadrature permutation, as input to the function."""
         return self.S("quadrature_permutation")
 
     def num_custom_quadrature_points(self):
