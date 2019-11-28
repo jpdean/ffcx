@@ -71,7 +71,7 @@ class FFCBackendDefinitions(object):
         else:
             raise RuntimeError("Not handled: %s", ttype)
 
-    def coefficient(self, t, mt, tabledata, num_points, access, flip=False):
+    def coefficient(self, t, mt, tabledata, num_points, access):
         """Return definition code for coefficients."""
         L = self.language
 
@@ -95,10 +95,7 @@ class FFCBackendDefinitions(object):
         assert begin < end
 
         # Get access to element table
-        if flip:
-            FE = self.symbols.element_table_flip(tabledata, self.entitytype, mt.restriction, num_points)
-        else:
-            FE = self.symbols.element_table(tabledata, self.entitytype, mt.restriction, num_points)
+        FE = self.symbols.element_table_flip(tabledata, self.entitytype, mt.restriction, num_points)
 
         unroll = len(tabledata.dofmap) != end - begin
         # unroll = True
