@@ -414,10 +414,13 @@ extern "C"
   ///         0 means "no permutation"
   ///         1 means "reverse order"
   ///
-  typedef void(ufc_tabulate_tensor)(
-      ufc_scalar_t* restrict A, const ufc_scalar_t* w, const ufc_scalar_t* c,
-      const double* restrict coordinate_dofs, const int* entity_local_index,
-      const int* cell_orientation, const int* quadrature_permutation);
+  typedef void (ufc_tabulate_tensor)(ufc_scalar_t* restrict A,
+      const ufc_scalar_t* w,
+      const ufc_scalar_t* c,
+      const double* restrict coordinate_dofs,
+      const int* entity_local_index,
+      const int* cell_orientation,
+      const int* quadrature_permutation);
 
   /// Tabulate integral into tensor A with runtime quadrature rule
   ///
