@@ -4,6 +4,11 @@
 #
 # SPDX-License-Identifier:    LGPL-3.0-or-later
 
+# NOTE Implementing using a similar approach to Firedrake which
+# supports these elements. Is this the correct way or should they
+# be implemented in FIAT?
+# See: https://github.com/firedrakeproject/ffc/blob/master/ffc/fiatinterface.py
+
 import logging
 import warnings
 
