@@ -76,6 +76,8 @@ def create_element(ufl_element):
     elif isinstance(ufl_element, ufl.RestrictedElement):
         element = _create_restricted_element(ufl_element)
         raise RuntimeError("Cannot handle this element type: {}".format(ufl_element))
+    elif isinstance(ufl_element, ufl.HDivElement):
+        element = FIAT.Hdiv(_create_fiat_element(ufl_element._element))
 
     # Store in cache
     _cache[element_signature] = element
@@ -149,7 +151,10 @@ def _create_fiat_element(ufl_element):
             A = create_element(ufl_element.sub_elements()[0])
             B = create_element(ufl_element.sub_elements()[1])
             element = ElementClass(A, B)
-
+        elif isinstance(ufl_element, ufl.EnrichedElement):
+            A = create_element(ufl_element._elements[0])
+            B = create_element(ufl_element._elements[1])
+            element = ElementClass(A, B)
         # Create normal FIAT finite element
         else:
             if degree is None:
