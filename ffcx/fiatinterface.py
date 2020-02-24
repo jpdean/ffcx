@@ -104,7 +104,7 @@ def _create_fiat_element(ufl_element):
     if family == "RTCF":
         if cellname == "quadrilateral":
             quadrilateral_tpc = ufl.TensorProductCell(ufl.Cell("interval"), ufl.Cell("interval"))
-            return _create_fiat_element(ufl_element.reconstruct(cell=quadrilateral_tpc))
+            return create_element(ufl_element.reconstruct(cell=quadrilateral_tpc))
 
     # Handle the space of the constant
     if family == "Real":
@@ -155,12 +155,6 @@ def _create_fiat_element(ufl_element):
         if isinstance(ufl_element, ufl.TensorProductElement):
             A = create_element(ufl_element.sub_elements()[0])
             B = create_element(ufl_element.sub_elements()[1])
-            element = ElementClass(A, B)
-        # FIXME Enriched element seems to be handedled in create_element.
-        # Try to remove this code and use existing code there instead.
-        elif isinstance(ufl_element, ufl.EnrichedElement):
-            A = create_element(ufl_element._elements[0])
-            B = create_element(ufl_element._elements[1])
             element = ElementClass(A, B)
         # Create normal FIAT finite element
         else:
