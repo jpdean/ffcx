@@ -102,9 +102,8 @@ def _create_fiat_element(ufl_element):
     fiat_cell = reference_cell(cellname)
 
     if family == "RTCF":
-        if cellname == "quadrilateral":
-            quadrilateral_tpc = ufl.TensorProductCell(ufl.Cell("interval"), ufl.Cell("interval"))
-            return create_element(ufl_element.reconstruct(cell=quadrilateral_tpc))
+        quadrilateral_tpc = ufl.TensorProductCell(ufl.Cell("interval"), ufl.Cell("interval"))
+        return create_element(ufl_element.reconstruct(cell=quadrilateral_tpc))
 
     # Handle the space of the constant
     if family == "Real":
