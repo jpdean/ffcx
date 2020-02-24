@@ -151,6 +151,8 @@ def _create_fiat_element(ufl_element):
             A = create_element(ufl_element.sub_elements()[0])
             B = create_element(ufl_element.sub_elements()[1])
             element = ElementClass(A, B)
+        # FIXME Enriched element seems to be handedled in create_element.
+        # Try to remove this code and use existing code there instead.
         elif isinstance(ufl_element, ufl.EnrichedElement):
             A = create_element(ufl_element._elements[0])
             B = create_element(ufl_element._elements[1])
