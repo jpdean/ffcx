@@ -627,6 +627,7 @@ def _evaluate_basis(ufl_element, fiat_element, epsilon):
     dofs_data = []
     for e in elements:
         num_components = ufl.utils.sequences.product(e.value_shape())
+        from FIAT import TensorProductElement
         if isinstance(e, FlattenedDimensions):
             # Tensor product element
             A = e.element.A
@@ -667,7 +668,25 @@ def _evaluate_basis(ufl_element, fiat_element, epsilon):
             for mat in ad:
                 dmats += [numpy.block([[w * mat for w in v] for v in bi])]
             dmats += [numpy.block([[w * ai for w in v] for v in bd[0]])]
+        elif isinstance(e, TensorProductElement):
+            A = e.A
+            B = e.B
+            ac = A.get_coeffs()
+            ad = A.dmats()
+            bc = B.get_coeffs()
+            bd = B.dmats()
+            coeffs = numpy.block([[w * ac for w in v] for v in bc])
+            num_expansion_members = coeffs.shape[0]
+            ai = numpy.eye(ad[0].shape[0])
+            bi = numpy.eye(bd[0].shape[0])
 
+            if len(bd) != 1:
+                raise NotImplementedError("Cannot create dmats")
+
+            dmats = []
+            for mat in ad:
+                dmats += [numpy.block([[w * mat for w in v] for v in bi])]
+            dmats += [numpy.block([[w * ai for w in v] for v in bd[0]])]
         else:
             coeffs = e.get_coeffs()
             dmats = e.dmats()
