@@ -69,8 +69,8 @@ def create_element(ufl_element):
         element = MixedElement(elements)
     elif isinstance(ufl_element, ufl.EnrichedElement):
         # TODO Flatten here?
-        # elements = [FlattenedDimensions(create_element(e)) for e in ufl_element._elements]
-        elements = [create_element(e) for e in ufl_element._elements]
+        elements = [FlattenedDimensions(create_element(e)) for e in ufl_element._elements]
+        # elements = [create_element(e) for e in ufl_element._elements]
         element = EnrichedElement(*elements)
     elif isinstance(ufl_element, ufl.NodalEnrichedElement):
         elements = [create_element(e) for e in ufl_element._elements]
@@ -107,8 +107,7 @@ def _create_fiat_element(ufl_element):
     if family == "RTCF":
         # TODO Same as if cellname == quadrilateral, so should remove.
         quadrilateral_tpc = ufl.TensorProductCell(ufl.Cell("interval"), ufl.Cell("interval"))
-        return FlattenedDimensions(
-            create_element(ufl_element.reconstruct(cell=quadrilateral_tpc)))
+        return create_element(ufl_element.reconstruct(cell=quadrilateral_tpc))
 
     # Handle the space of the constant
     if family == "Real":
