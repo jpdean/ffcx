@@ -735,6 +735,11 @@ def _tabulate_dof_coordinates(ufl_element, element):
     if uses_integral_moments(element):
         return {}
 
+    # if(ufl_element.family() == "RTCF"):
+    #     pts = [(1.0, 0.5), (0.5, 1.0), (0.0, 0.5), (0.5, 0.0)]
+    # else:
+    #     pts = [sorted(L.pt_dict.keys())[0] for L in element.dual_basis()]
+
     # Bail out if any dual basis member is missing (element is not
     # nodal), this is strictly not necessary but simpler
     if any(L is None for L in element.dual_basis()):
