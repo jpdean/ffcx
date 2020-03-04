@@ -735,6 +735,8 @@ def _tabulate_dof_coordinates(ufl_element, element):
     if uses_integral_moments(element):
         return {}
 
+    # NOTE This gives a warning (due to the undefined functionals, I think),
+    # followed by crashing.
     # if(ufl_element.family() == "RTCF"):
     #     pts = [(1.0, 0.5), (0.5, 1.0), (0.0, 0.5), (0.5, 0.0)]
     # else:
